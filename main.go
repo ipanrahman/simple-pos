@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/ipan97/simple-pos/internal/config"
 	"net/http"
-	"simple-pos/internal/config"
 )
 
 var (
