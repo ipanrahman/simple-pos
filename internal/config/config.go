@@ -11,8 +11,10 @@ type Config struct {
 	Database   Database
 }
 
-var configInstance *Config
-var once sync.Once
+var (
+	configInstance *Config
+	once           sync.Once
+)
 
 func NewConfig() *Config {
 	once.Do(func() {

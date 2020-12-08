@@ -1,13 +1,5 @@
 package config
 
-import "time"
-
-const (
-	DefaultMaxIdleConnection     = 5
-	DefaultMaxOpenConnection     = 5
-	DefaultConnectionMaxLifeTime = 10 * time.Minute
-)
-
 type Database struct {
 	Driver            string `json:"driver"`
 	Host              string `json:"host"`

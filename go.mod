@@ -1,4 +1,4 @@
-module simple-pos
+module github.com/ipan97/simple-pos
 
 go 1.15
 

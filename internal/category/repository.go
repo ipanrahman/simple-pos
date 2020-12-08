@@ -10,6 +10,7 @@ const collectionName = "categories"
 
 type IRepository interface {
 	FindAll(ctx context.Context) ([]Category, error)
+	FindByID(ctx context.Context, id string) (Category, error)
 }
 
 type Repository struct {
@@ -32,4 +33,8 @@ func (r Repository) FindAll(ctx context.Context) ([]Category, error) {
 		}
 	}
 	return categories, err
+}
+
+func (r Repository) FindByID(ctx context.Context, id string) (Category, error) {
+	panic("Implement me")
 }
