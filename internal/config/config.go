@@ -33,14 +33,14 @@ func loadConfig() *Config {
 		AppPort:    v.GetInt("app.port"),
 		Env:        v.GetString("app.env"),
 		Database: Database{
-			Driver:            v.GetString("database.postgres.driver"),
-			Host:              v.GetString("database.postgres.host"),
-			Port:              v.GetInt("database.postgres.port"),
-			Username:          v.GetString("database.postgres.username"),
-			Password:          v.GetString("database.postgres.password"),
-			DatabaseName:      v.GetString("database.postgres.database_name"),
-			MaxIdleConnection: v.GetInt("database.postgres.max_idle_connection"),
-			MaxOpenConnection: v.GetInt("database.postgres.max_open_connection"),
+			Driver:            v.GetString("db.driver"),
+			Host:              v.GetString("db.host"),
+			Port:              v.GetInt("db.port"),
+			Username:          v.GetString("db.user"),
+			Password:          v.GetString("db.password"),
+			DatabaseName:      v.GetString("db.database"),
+			MaxIdleConnection: v.GetInt("db.max_idle_connection"),
+			MaxOpenConnection: v.GetInt("db.max_open_connection"),
 		},
 	}
 }

@@ -2,6 +2,7 @@ package config
 
 import (
 	"github.com/spf13/viper"
+	"log"
 	"strings"
 	"sync"
 )
@@ -27,7 +28,10 @@ func Viper() *viper.Viper {
 		// Set Default
 		viperInstance.SetDefault("app.port", 3000)
 		// Read Config
-		_ = viperInstance.ReadInConfig()
+		errReadConfig := viperInstance.ReadInConfig()
+		if errReadConfig != nil {
+			log.Fatalf("Error read config file : %v", errReadConfig)
+		}
 	})
 	return viperInstance
 }

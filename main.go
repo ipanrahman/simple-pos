@@ -2,20 +2,23 @@ package main
 
 import (
 	"fmt"
+	"log"
+	"net/http"
+
 	"github.com/gin-gonic/gin"
 	"github.com/ipan97/simple-pos/internal/config"
-	"net/http"
 )
 
 var (
 	conf *config.Config
 )
 
-func init() {
-	conf = config.NewConfig()
-}
-
 func main() {
+	conf = config.NewConfig()
+	_, errDB := config.ConnectPostgres(conf)
+	if errDB != nil {
+		log.Fatalf("Can't connect postgres cause : %v", errDB)
+	}
 	r := gin.Default()
 	r.GET("/", func(ctx *gin.Context) {
 		ctx.String(http.StatusOK, "Simple Point Of Sales")
