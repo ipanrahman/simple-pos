@@ -1,14 +1,14 @@
-package category
+package http
 
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/ipan97/simple-pos/internal/core"
 )
 
-type HTTPHandler struct {
+type CategoryHTTPHandler struct {
 	core.BaseHandler
 }
 
-func (h HTTPHandler) GetAllCategories(ctx *gin.Context) {
+func (h *CategoryHTTPHandler) GetAllCategories(ctx *gin.Context) {
 	h.OK(ctx, "Success get all categories", gin.H{})
 }

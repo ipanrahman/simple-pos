@@ -1,6 +1,9 @@
 package customer
 
+import "gorm.io/gorm"
+
 type Customer struct {
+	gorm.Model
 	CustomerID string `json:"customer_id"`
 	FirstName  string `json:"first_name"`
 	LastName   string `json:"last_name"`

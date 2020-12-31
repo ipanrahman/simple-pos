@@ -2,6 +2,10 @@ package main
 
 import (
 	"fmt"
+	"github.com/ipan97/simple-pos/internal/brand"
+	categoryModel "github.com/ipan97/simple-pos/internal/category/model"
+	"github.com/ipan97/simple-pos/internal/customer"
+	"github.com/ipan97/simple-pos/internal/product"
 	"log"
 	"net/http"
 
@@ -15,9 +19,18 @@ var (
 
 func main() {
 	conf = config.NewConfig()
-	_, errDB := config.ConnectPostgres(conf)
-	if errDB != nil {
-		log.Fatalf("Can't connect postgres cause : %v", errDB)
+	db, errConnectDB := config.ConnectPostgres(conf)
+	if errConnectDB != nil {
+		log.Fatalf("Can't connect postgres cause : %v", errConnectDB)
+	}
+	errDBAutoMigrate := db.AutoMigrate(
+		brand.Brand{},
+		categoryModel.Category{},
+		customer.Customer{},
+		product.Product{},
+	)
+	if errDBAutoMigrate != nil {
+		log.Fatalf("Can't migrate database : %v", errDBAutoMigrate)
 	}
 	r := gin.Default()
 	r.GET("/", func(ctx *gin.Context) {

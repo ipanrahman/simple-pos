@@ -1,6 +1,9 @@
 package product
 
+import "gorm.io/gorm"
+
 type Product struct {
+	gorm.Model
 	ProductName string  `json:"product_name"`
 	BrandID     string  `json:"brand_id"`
 	CategoryID  string  `json:"category_id"`
