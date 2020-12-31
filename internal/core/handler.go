@@ -15,3 +15,10 @@ func (BaseHandler) OK(ctx *gin.Context, message string, data interface{}) {
 		Data:    data,
 	})
 }
+
+func (BaseHandler) NotFound(ctx *gin.Context, message string) {
+	ctx.JSON(http.StatusNotFound, &APIResponse{
+		Code:    http.StatusNotFound,
+		Message: message,
+	})
+}

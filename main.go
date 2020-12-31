@@ -3,7 +3,9 @@ package main
 import (
 	"fmt"
 	"github.com/ipan97/simple-pos/internal/brand"
+	categoryHTTPHandler "github.com/ipan97/simple-pos/internal/category/delivery/http"
 	categoryModel "github.com/ipan97/simple-pos/internal/category/model"
+	categoryRepository "github.com/ipan97/simple-pos/internal/category/repository"
 	"github.com/ipan97/simple-pos/internal/customer"
 	"github.com/ipan97/simple-pos/internal/product"
 	"log"
@@ -41,6 +43,13 @@ func main() {
 			"message": "pong",
 		})
 	})
+	v1 := r.Group("/v1")
+	{
+		// Category Route
+		newCategoryRepository := categoryRepository.NewCategoryRepository(db)
+		newCategoryHTTPHandler := categoryHTTPHandler.NewCategoryHTTPHandler(newCategoryRepository)
+		v1.GET("/categories", newCategoryHTTPHandler.GetAllCategories)
+	}
 	if err := r.Run(fmt.Sprintf(":%d", conf.AppPort)); err != nil {
 		fmt.Printf("Error running server cause %v : ", err)
 	}
