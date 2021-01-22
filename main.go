@@ -52,10 +52,13 @@ func main() {
 			"message": "pong",
 		})
 	})
-	v1 := r.Group("/v1")
+	api := r.Group("/api")
 	{
-		// Category Route
-		category.InitRouter(v1, db)
+		v1 := api.Group("/v1")
+		{
+			// Category Route
+			category.InitRouter(v1, db)
+		}
 	}
 	if err := r.Run(fmt.Sprintf(":%d", conf.AppPort)); err != nil {
 		fmt.Printf("Error running server cause %v : ", err)
