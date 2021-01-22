@@ -1,9 +1,12 @@
 package http
 
 import (
+	"errors"
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/ipan97/simple-pos/internal/category/repository"
 	"github.com/ipan97/simple-pos/internal/core"
+	"gorm.io/gorm"
 	"strconv"
 )
 
@@ -19,7 +22,7 @@ func NewCategoryHTTPHandler(categoryRepository repository.Repository) *CategoryH
 func (h *CategoryHTTPHandler) GetAllCategories(ctx *gin.Context) {
 	categories, err := h.categoryRepository.FindAll()
 	if err != nil {
-		h.NotFound(ctx, err.Error())
+		h.InternalServerError(ctx, err)
 		return
 	}
 	h.OK(ctx, "Success get all categories", categories)
@@ -27,11 +30,15 @@ func (h *CategoryHTTPHandler) GetAllCategories(ctx *gin.Context) {
 
 func (h *CategoryHTTPHandler) GetCategoryByID(ctx *gin.Context) {
 	id := ctx.Param("id")
-	categoryID, _ := strconv.ParseInt(id, 10, 32)
+	categoryID, _ := strconv.Atoi(id)
 	category, err := h.categoryRepository.FindOneByID(uint(categoryID))
 	if err != nil {
-		h.NotFound(ctx, err.Error())
+		if errors.Is(gorm.ErrRecordNotFound, err) {
+			h.NotFound(ctx, err.Error())
+			return
+		}
+		h.InternalServerError(ctx, err)
 		return
 	}
-	h.OK(ctx, "Success get all categories", category)
+	h.OK(ctx, fmt.Sprintf("Success get category by id : %s", id), category)
 }
