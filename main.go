@@ -6,7 +6,7 @@ import (
 	"github.com/ipan97/simple-pos/internal/category"
 	categoryModel "github.com/ipan97/simple-pos/internal/category/model"
 	"github.com/ipan97/simple-pos/internal/customer"
-	"github.com/ipan97/simple-pos/internal/product"
+	"github.com/ipan97/simple-pos/internal/product/model"
 	"log"
 	"net/http"
 
@@ -28,7 +28,7 @@ func main() {
 		brand.Brand{},
 		categoryModel.Category{},
 		customer.Customer{},
-		product.Product{},
+		model.Product{},
 	)
 	if errDBAutoMigrate != nil {
 		log.Fatalf("Can't migrate database : %v", errDBAutoMigrate)
