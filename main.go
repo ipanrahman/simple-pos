@@ -35,6 +35,8 @@ func main() {
 		log.Fatalf("Can't migrate database : %v", errDBAutoMigrate)
 	}
 	r := gin.Default()
+
+	r.Static("/assets", "./assets")
 	r.Delims("{{", "}}")
 	r.SetFuncMap(sprig.FuncMap())
 	r.LoadHTMLGlob("web/*.html")
