@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/Masterminds/sprig"
 	"github.com/ipan97/simple-pos/internal/brand"
 	"github.com/ipan97/simple-pos/internal/category"
 	categoryModel "github.com/ipan97/simple-pos/internal/category/model"
@@ -34,8 +35,15 @@ func main() {
 		log.Fatalf("Can't migrate database : %v", errDBAutoMigrate)
 	}
 	r := gin.Default()
+	r.Delims("{{", "}}")
+	r.SetFuncMap(sprig.FuncMap())
+	r.LoadHTMLGlob("web/*.html")
+
+	// Main page
 	r.GET("/", func(ctx *gin.Context) {
-		ctx.String(http.StatusOK, "Simple Point Of Sales")
+		ctx.HTML(http.StatusOK, "index.html", gin.H{
+			"Title": "Simple Point Of Sales",
+		})
 	})
 	r.GET("/ping", func(ctx *gin.Context) {
 		ctx.JSON(http.StatusOK, gin.H{
