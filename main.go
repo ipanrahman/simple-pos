@@ -3,16 +3,19 @@ package main
 import (
 	"fmt"
 	"github.com/Masterminds/sprig"
+	"github.com/casbin/casbin/v2"
+	gormadapter "github.com/casbin/gorm-adapter/v3"
+	"github.com/gin-gonic/gin"
+	authModel "github.com/ipan97/simple-pos/internal/auth/model"
 	"github.com/ipan97/simple-pos/internal/brand"
 	"github.com/ipan97/simple-pos/internal/category"
 	categoryModel "github.com/ipan97/simple-pos/internal/category/model"
+	"github.com/ipan97/simple-pos/internal/config"
 	"github.com/ipan97/simple-pos/internal/customer"
 	"github.com/ipan97/simple-pos/internal/product/model"
 	"log"
 	"net/http"
-
-	"github.com/gin-gonic/gin"
-	"github.com/ipan97/simple-pos/internal/config"
+	"time"
 )
 
 var (
@@ -25,6 +28,15 @@ func main() {
 	if errConnectDB != nil {
 		log.Fatalf("Can't connect postgres cause : %v", errConnectDB)
 	}
+	cabinAdapter, errCasbinAdapter := gormadapter.NewAdapterByDBWithCustomTable(db, &authModel.CasbinRule{})
+	if errCasbinAdapter != nil {
+		log.Fatalf("Error create casbin adapter cause : %v", errCasbinAdapter)
+	}
+	casbinEnforcer, errCasbinEnforcer := casbin.NewSyncedEnforcer("config/rbac_model.conf", cabinAdapter)
+	if errCasbinEnforcer != nil {
+		log.Fatalf("Error create casbin enforcer cause : %v", casbinEnforcer)
+	}
+	casbinEnforcer.StartAutoLoadPolicy(3 * time.Minute)
 	errDBAutoMigrate := db.AutoMigrate(
 		brand.Brand{},
 		categoryModel.Category{},
