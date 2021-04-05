@@ -13,6 +13,8 @@ import (
 	"github.com/ipan97/simple-pos/internal/config"
 	"github.com/ipan97/simple-pos/internal/customer"
 	"github.com/ipan97/simple-pos/internal/product/model"
+	roleModel "github.com/ipan97/simple-pos/internal/role/model"
+	userModel "github.com/ipan97/simple-pos/internal/user/model"
 	"log"
 	"net/http"
 	"time"
@@ -42,6 +44,8 @@ func main() {
 		categoryModel.Category{},
 		customer.Customer{},
 		model.Product{},
+		userModel.User{},
+		roleModel.Role{},
 	)
 	if errDBAutoMigrate != nil {
 		log.Fatalf("Can't migrate database : %v", errDBAutoMigrate)
