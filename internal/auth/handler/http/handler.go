@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"log"
+	"net/http"
 )
 
 type Handler struct {
@@ -19,7 +20,7 @@ type TestData struct {
 	Password string `json:"password"`
 }
 
-func (h *Handler) Login(ctx *gin.LoggerConfig) {
+func (h *Handler) Login(ctx *gin.Context) {
 	data := map[string]interface{}{
 		"username": "Test",
 		"password": "Test",
@@ -33,4 +34,5 @@ func (h *Handler) Login(ctx *gin.LoggerConfig) {
 		log.Printf("Error : %v \n", err)
 		return
 	}
+	ctx.JSON(http.StatusOK, &result)
 }
