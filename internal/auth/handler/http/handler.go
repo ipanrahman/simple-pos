@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"log"
 )
 
 type Handler struct {
@@ -28,6 +29,8 @@ func (h *Handler) Login(ctx *gin.LoggerConfig) {
 	if err != nil {
 		fmt.Println(err)
 	}
-	json.Unmarshal(j, &result)
-
+	if err := json.Unmarshal(j, &result); err != nil {
+		log.Printf("Error : %v \n", err)
+		return
+	}
 }
