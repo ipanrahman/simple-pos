@@ -6,13 +6,12 @@ require (
 	github.com/Masterminds/goutils v1.1.0 // indirect
 	github.com/Masterminds/semver v1.5.0 // indirect
 	github.com/Masterminds/sprig v2.22.0+incompatible
-	github.com/casbin/casbin/v2 v2.25.5
-	github.com/casbin/gorm-adapter/v3 v3.2.3
 	github.com/gin-gonic/gin v1.6.3
 	github.com/google/uuid v1.1.5 // indirect
 	github.com/huandu/xstrings v1.3.2 // indirect
 	github.com/imdario/mergo v0.3.11 // indirect
 	github.com/jackc/pgx/v4 v4.10.1 // indirect
+	github.com/lib/pq v1.8.0 // indirect
 	github.com/mitchellh/copystructure v1.0.0 // indirect
 	github.com/pelletier/go-toml v1.7.0 // indirect
 	github.com/spf13/viper v1.7.1
