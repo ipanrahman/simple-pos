@@ -3,10 +3,6 @@ run:
   build-tags:
     - scripts
 issues:
- # exclude-rules:
- #   - path: internal/brand/delivery/http
- #     linters:
- #       - revive
   fix: true
 linters:
   disable-all: true
