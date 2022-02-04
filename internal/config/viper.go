@@ -1,10 +1,11 @@
 package config
 
 import (
-	"github.com/spf13/viper"
 	"log"
 	"strings"
 	"sync"
+
+	"github.com/spf13/viper"
 )
 
 const (

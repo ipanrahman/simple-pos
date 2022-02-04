@@ -3,11 +3,12 @@ package http
 import (
 	"errors"
 	"fmt"
+	"strconv"
+
 	"github.com/gin-gonic/gin"
 	"github.com/ipan97/simple-pos/internal/category/repository"
 	"github.com/ipan97/simple-pos/internal/core"
 	"gorm.io/gorm"
-	"strconv"
 )
 
 type CategoryHTTPHandler struct {
