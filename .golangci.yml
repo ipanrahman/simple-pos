@@ -33,7 +33,7 @@ linters:
     # Style Check
     # ---
     # https://github.com/mgechev/revive
-    # # replacement for the now deprecated official golint linter, see https://github.com/golang/go/issues/38968
+    # replacement for the now deprecated official golint linter, see https://github.com/golang/go/issues/38968
     - revive
     - gochecknoglobals
     - gosimple
