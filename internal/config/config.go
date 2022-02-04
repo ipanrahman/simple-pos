@@ -1,7 +1,5 @@
 package config
 
-import "sync"
-
 type Config struct {
 	AppName    string
 	AppVersion string
@@ -11,21 +9,8 @@ type Config struct {
 	Database   Database
 }
 
-var (
-	configInstance *Config
-	once           sync.Once
-)
-
 func NewConfig() *Config {
-	once.Do(func() {
-		configInstance = loadConfig()
-	})
-	return configInstance
-}
-
-func loadConfig() *Config {
 	v := Viper()
-
 	return &Config{
 		AppName:    v.GetString("app.name"),
 		AppVersion: v.GetString("app.version"),
